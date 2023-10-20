@@ -1,0 +1,40 @@
+
+
+#def text_to_task(text):
+#     import openai
+#     from langchain.output_parsers import ResponseSchema
+#     from langchain.output_parsers import StructuredOutputParser
+#     import os
+#     from langchain.prompts import ChatPromptTemplate
+#     from langchain.chat_models import ChatOpenAI
+#     from langchain.output_parsers import ResponseSchema
+#     from langchain.output_parsers import StructuredOutputParser
+#     from dotenv import load_dotenv
+#     load_dotenv()
+#     openai.api_key=os.environ.get("OPENAI_API_KEY")
+#     output_template="""
+#     for the following text extract the following information:
+# timestamp: extract the time from the given text if no time mention take the live timestamp instead\
+# completed: will be always False
+# Task: extract the task from the given text and summarize it in a professinal way to set a reminder\
+# level of importance: extract the level of importance and high,medium,low. if no level is mentioned set as medium\
+# format the output as JSON with the following keys:
+# timestamp
+# completed
+# Task
+# level of importance
+# text:{text}
+# """
+#     timestamp_schema=ResponseSchema(name='timestamp',description="timestamp in the standard timestamp format YYYY-MM-DDTHH:MM:SS \ ")
+#     completed_schema=ResponseSchema(name='completed',description='boolean value by default always False')
+#     Task_schema=ResponseSchema(name='Task',description='The task which is to be done \ client meeting at 10 am\ wish birthday at 8pm\ complete this module of the project before 5 am\ call to home before night ')
+#     level_of_importance_schema=ResponseSchema(name='level of importance',description=' three levels say high medium low by default medium is set')
+#     response_schemas=[timestamp_schema,completed_schema,Task_schema,level_of_importance_schema]
+#     output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
+#     format_instructions = output_parser.get_format_instructions()
+#     prompt_template=ChatPromptTemplate.from_template(output_template)
+#     messages=prompt_template.format_messages(text=text,format_instructions=format_instructions)
+#     chat=ChatOpenAI(temperature=0.0,model='gpt-3.5-turbo')
+#     response=chat(messages)
+#     output_dict=output_parser.parse(response.content) 
+#     return output_dict
